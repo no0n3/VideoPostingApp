@@ -4,7 +4,8 @@ import {
   TYPE_FETCH_CURRENT_VIDEO,
   TYPE_FETCH_VIDEOS,
   TYPE_SET_VIDEO_DISLIKED,
-  TYPE_SET_VIDEO_LIKED
+  TYPE_SET_VIDEO_LIKED,
+  TYPE_VIDEO_DELETED
 } from "../actions/video";
 import { ReduxAction } from "../types";
 
@@ -49,6 +50,11 @@ export default function videoReducer(state: any = initialState, action: ReduxAct
           ...state.currentVideo,
           ...action.payload
         },
+      };
+    case TYPE_VIDEO_DELETED:
+      return {
+        ...state,
+        videos: (state?.videos ?? []).filter(({ id }: any) => id !== action.payload.videoId)
       };
   }
 

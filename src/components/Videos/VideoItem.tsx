@@ -1,9 +1,16 @@
 import { Avatar, Typography } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { useDispatch, useSelector } from "react-redux";
+import { videoDeleted } from "../../store/actions/video";
+import { deleteVideo } from "../../api/service";
 
 export default function VideoItem({ video }: any) {
+  const currentUser = useSelector(({ user }: any) => user.currentUser);
+  const [deleting, setDeleting] = useState<boolean>(false);
   const history = useHistory();
+  const dispatch = useDispatch();
   const ref = useRef(null);
   const ref2 = useRef(null);
 
@@ -33,6 +40,22 @@ export default function VideoItem({ video }: any) {
     }
   }, [ref, ref2]);
 
+  const onDelete = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (deleting) {
+      return;
+    }
+
+    setDeleting(true);
+    deleteVideo(video.id)
+      .then(() => {
+        dispatch(videoDeleted(video.id));
+        setDeleting(false);
+      });
+  };
+
   return (
     <div ref={ref2} onClick={() => history.push(`/watch/${video.id}`)}
       style={{
@@ -60,6 +83,13 @@ export default function VideoItem({ video }: any) {
         </div>
         {video.viewsCount !== undefined && <div style={{ marginTop: 5 }}>{video.viewsCount} views</div>}
       </div>
-    </div>
+      {video.userId === currentUser?.id && <DeleteOutlineOutlinedIcon style={{
+        position: 'absolute',
+        top: 5,
+        right: 5,
+        color: '#fff',
+        fontSize: 40
+      }} onClick={(e) => onDelete(e)}></DeleteOutlineOutlinedIcon>}
+    </div >
   );
 }

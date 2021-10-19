@@ -56,6 +56,7 @@ export default function User() {
   if (loadingUser) {
     return <div>Loading...</div>;
   }
+  console.log('user', user.id)
   if (!loadingUser && !user?.id) {
     return <div>User does not exist.</div>;
   }

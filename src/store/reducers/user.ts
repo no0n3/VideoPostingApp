@@ -64,6 +64,7 @@ export default function userReducer(state: any = initialState, action: ReduxActi
       return {
         ...state,
         user: {
+          ...(state.user || {}),
           ...action.payload,
         },
         loadingVideos: false

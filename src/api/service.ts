@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -422,4 +423,8 @@ export const seeNotification = (notificationId: string) => {
   return updateDoc(doc(db, 'notifications', notificationId), {
     seen: true
   });
+}
+
+export const deleteVideo = (videoId: string) => {
+  return deleteDoc(doc(db, 'videos', videoId));
 }

@@ -16,7 +16,8 @@ import { notificationsLoaded } from "../store/actions/notification";
 import NotificationsPopover from "./Notifications/NotificationsPopover";
 
 export default function Header({ onMenuClicked }: { onMenuClicked: () => any }) {
-  const { isLogged, currentUser } = useSelector(({ user: { isLogged, currentUser } }: any) => ({ isLogged, currentUser }));
+  const isLogged = useSelector(({ user }: any) => user.isLogged);
+  const currentUser = useSelector(({ user }: any) => user.currentUser);
   const history = useHistory();
   const dispatch = useDispatch();
 

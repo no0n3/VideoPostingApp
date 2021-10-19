@@ -5,6 +5,7 @@ export const TYPE_FETCH_VIDEOS = 'fetch_videos';
 export const TYPE_FETCHED_VIDEOS = 'fetched_videos';
 export const TYPE_SET_VIDEO_LIKED = 'set_video_liked';
 export const TYPE_SET_VIDEO_DISLIKED = 'set_video_disliked';
+export const TYPE_VIDEO_DELETED = 'video_deleted';
 
 export function likeCurrentVideo() {
   return { type: TYPE_LIKE_VIDEO, payload: {} };
@@ -60,5 +61,12 @@ export function setCurrentVideoDisliked(disliked: boolean) {
   return {
     type: TYPE_SET_VIDEO_DISLIKED,
     payload: { disliked }
+  }
+}
+
+export function videoDeleted(videoId: string) {
+  return {
+    type: TYPE_VIDEO_DELETED,
+    payload: { videoId }
   }
 }
