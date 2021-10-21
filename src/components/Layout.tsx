@@ -15,6 +15,9 @@ import Header from "./Header";
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { auth } from '../api/firebase';
+import { SubscriptionsOutlined } from '@mui/icons-material';
+import UserSubscriptions from './User/UserSubscriptions';
+import { Divider, Typography } from '@mui/material';
 
 function LeftDrawer({ open, setOpen }: { open: boolean, setOpen: (b: boolean) => void }) {
   const isLogged = useSelector(({ user }: any) => user.isLogged);
@@ -65,6 +68,11 @@ function LeftDrawer({ open, setOpen }: { open: boolean, setOpen: (b: boolean) =>
                 onClick: () => history.push(`/user/${currentUser.id}/liked`)
               },
               {
+                text: 'Subscriptions',
+                icon: <SubscriptionsOutlined />,
+                onClick: () => history.push('/subscriptions')
+              },
+              {
                 text: 'Logout',
                 icon: <LogoutOutlinedIcon />,
                 onClick: () => auth.signOut()
@@ -94,6 +102,13 @@ function LeftDrawer({ open, setOpen }: { open: boolean, setOpen: (b: boolean) =>
               </ListItem>
             ))}
           </List>
+          <Divider></Divider>
+          <ListItem>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => history.push('/')}>
+              Subscriptions
+            </Typography>
+          </ListItem>
+          <UserSubscriptions userId={currentUser?.id}></UserSubscriptions>
         </Box>
       </Drawer>
     </div>

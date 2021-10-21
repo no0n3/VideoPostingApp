@@ -101,8 +101,10 @@ export default function User() {
   return (
     <div>
       <div style={{
-        maxWidth: 500,
-        marginTop: 15
+        paddingTop: 15,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
         <div style={{
           display: 'flex',
@@ -120,38 +122,22 @@ export default function User() {
           {!subscribed && <Button variant="outlined" onClick={() => onSubscribe()} disabled={subscribing}>subscribe</Button>}
         </div>)}
       </div>
-      <div style={{
-        display: 'flex'
-      }}>
-        <div style={{ flex: 1 }}>
-          <UserVideoTabs></UserVideoTabs>
-          <div style={{ marginTop: 10 }}>
-            <Switch>
-              <Route path={`${path}/videos`}>
-                <UploadedVideos userId={userId}></UploadedVideos>
-              </Route>
-              <Route path={`${path}/watched`}>
-                <WatchedVideos userId={userId}></WatchedVideos>
-              </Route>
-              <Route path={`${path}/liked`}>
-                <LikedVideos userId={userId}></LikedVideos>
-              </Route>
-              <Route path={`${path}`}>
-                <UploadedVideos userId={userId}></UploadedVideos>
-              </Route>
-            </Switch>
-          </div>
-        </div>
-        <div style={{
-          width: 200,
-          marginTop: 50,
-          marginLeft: 15
-        }}>
-          <Typography variant="h5" component="div" gutterBottom>Subscribers</Typography>
-          <UserSubscribers userId={userId}></UserSubscribers>
-          <Typography variant="h5" component="div" gutterBottom style={{ marginTop: 20 }}>Subscriptions</Typography>
-          <UserSubscriptions userId={userId}></UserSubscriptions>
-        </div>
+      <UserVideoTabs></UserVideoTabs>
+      <div style={{ marginTop: 10 }}>
+        <Switch>
+          <Route path={`${path}/videos`}>
+            <UploadedVideos userId={userId}></UploadedVideos>
+          </Route>
+          <Route path={`${path}/watched`}>
+            <WatchedVideos userId={userId}></WatchedVideos>
+          </Route>
+          <Route path={`${path}/liked`}>
+            <LikedVideos userId={userId}></LikedVideos>
+          </Route>
+          <Route path={`${path}`}>
+            <UploadedVideos userId={userId}></UploadedVideos>
+          </Route>
+        </Switch>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { getUserById } from './api/service';
 import Login from './components/Login';
 import User from './components/User/User';
 import SignUp from './components/SignUp';
+import SubscriptionsPage from './subscription/SubscriptionsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,11 +47,11 @@ function App() {
           </Layout>
         </Route>
         {isLogged && (
-        <Route path="/upload">
-          <Layout>
-            <Upload></Upload>
-          </Layout>
-        </Route>)}
+          <Route path="/upload">
+            <Layout>
+              <Upload></Upload>
+            </Layout>
+          </Route>)}
         {!isLogged && (
           <Route path="/sign-up">
             <Layout>
@@ -63,7 +64,15 @@ function App() {
             <Layout>
               <Login></Login>
             </Layout>
-          </Route>)}
+          </Route>
+        )}
+        {isLogged && (
+          <Route path="/subscriptions">
+            <Layout>
+              <SubscriptionsPage></SubscriptionsPage>
+            </Layout>
+          </Route>
+        )}
         <Route path="/">
           <Layout>
             <Videos></Videos>

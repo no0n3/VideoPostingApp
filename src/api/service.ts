@@ -18,6 +18,15 @@ import { db } from "./firebase";
 import { serverTimestamp } from "@firebase/firestore";
 import { v4 } from 'uuid';
 
+const chunk = (a: any[], CHUNK_SIZE = 10) => {
+  const result: any[][] = [];
+  for (let i = 0, j = a.length; i < j; i += CHUNK_SIZE) {
+    result.push(a.slice(i, i + CHUNK_SIZE))
+  }
+
+  return result;
+};
+
 export const addVideo = (video: any, userId: string) => {
   const newVideoId = v4();
 
@@ -427,4 +436,29 @@ export const seeNotification = (notificationId: string) => {
 
 export const deleteVideo = (videoId: string) => {
   return deleteDoc(doc(db, 'videos', videoId));
+}
+
+export const getSubscriptionVideos = (userIds: string[]) => {
+  return getDocs(query(
+    collection(db, 'videos'),
+    where('userId', 'in', userIds),
+    orderBy('createdAt', 'desc')
+  ));
+}
+
+export const getChunkedResult = (targetIds: string[], callback: (p: string[]) => any) => {
+  return Promise.all(
+    chunk(targetIds).map(chunkIds => callback(chunkIds))
+  )
+    .then((chunk: any[]) => {
+      const result: any[] = [];
+
+      for (const items of chunk) {
+        for (const item of items.docs.map((d: any) => ({ id: d.id, ...d.data() }))) {
+          result.push(item);
+        }
+      }
+
+      return result;
+    })
 }

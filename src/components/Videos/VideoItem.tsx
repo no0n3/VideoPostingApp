@@ -74,13 +74,15 @@ export default function VideoItem({ video }: any) {
         </div>
         <Typography variant="h6" component="div">{video.title}</Typography>
 
-        <div onClick={() => history.push(`/user/${video.userId}`)} style={{
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-          <Avatar src={video.userImageUrl} alt={video.userName} style={{ width: 40 }} />
-          <Typography variant="subtitle1" component="div" style={{ marginLeft: 5 }}>{video.userName}</Typography>
-        </div>
+        {video.userName && video.userImageUrl && (
+          <div onClick={() => history.push(`/user/${video.userId}`)} style={{
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            <Avatar src={video.userImageUrl} alt={video.userName} style={{ width: 40 }} />
+            <Typography variant="subtitle1" component="div" style={{ marginLeft: 5 }}>{video.userName}</Typography>
+          </div>
+        )}
         {video.viewsCount !== undefined && <div style={{ marginTop: 5 }}>{video.viewsCount} views</div>}
       </div>
       {video.userId === currentUser?.id && <DeleteOutlineOutlinedIcon style={{

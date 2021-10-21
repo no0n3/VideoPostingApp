@@ -91,10 +91,7 @@ export default function userReducer(state: any = initialState, action: ReduxActi
     case TYPE_USER_SUBSCRIPTIONS_LOADED:
       return {
         ...state,
-        user: {
-          ...(state.user || {}),
-          ...action.payload,
-        },
+        ...action.payload,
         loadingSubscriptions: false
       };
     case TYPE_USER_SUBSCRIBING:

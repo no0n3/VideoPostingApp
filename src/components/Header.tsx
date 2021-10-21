@@ -62,7 +62,7 @@ export default function Header({ onMenuClicked }: { onMenuClicked: () => any }) 
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => history.push('/')}>
-            Home
+            VVideo
           </Typography>
           {isLogged && (<>
             <VideoCallOutlinedIcon style={{ fontSize: 30, marginRight: 10 }} onClick={() => history.push('/upload')}></VideoCallOutlinedIcon>

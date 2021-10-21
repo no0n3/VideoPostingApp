@@ -30,7 +30,7 @@ export default function UploadedVideos({ userId }: any) {
         flexWrap: 'wrap'
       }}>
         {!loadingVideos && videos.map((video: any) => (
-          <VideoItem key={video.id} video={{ ...video, userId: user.id, userName: user.name, userImageUrl: user.imageUrl }}></VideoItem>
+          <VideoItem key={video.id} video={{ id: video.id, url: video.url, title: video.title }}></VideoItem>
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -10,7 +10,7 @@ export default function UserSubscriptions({ userId }: any) {
   const history = useHistory();
 
   const loadingSubscriptions = useSelector(({ user }: any) => user.loadingSubscriptions ?? true);
-  const subscriptions = useSelector(({ user }: any) => user?.user?.subscriptions ?? []);
+  const subscriptions = useSelector(({ user }: any) => user.subscriptions ?? []);
 
   useEffect(() => {
     dispatch(fetchUserSubscriptions());
@@ -30,14 +30,12 @@ export default function UserSubscriptions({ userId }: any) {
         flexWrap: 'wrap'
       }}>
         {!loadingSubscriptions && subscriptions.map((subscriber: any) => (
-          <div key={subscriber.subscribedId} onClick={() => history.push(`/user/${subscriber.subscribedId}`)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer'
-          }}>
+          <ListItem key={subscriber.subscribedId} onClick={() => history.push(`/user/${subscriber.subscribedId}`)}>
+            <ListItemIcon>
             <Avatar src={subscriber.subscribedImageUrl} alt={subscriber.subscribedName} />
-            <span style={{ marginLeft: 5 }}>{subscriber.subscribedName}</span>
-          </div>
+            </ListItemIcon>
+            <ListItemText primary={subscriber.subscribedName} />
+          </ListItem>
         ))}
       </div>
     </div>
